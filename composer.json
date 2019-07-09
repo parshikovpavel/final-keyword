@@ -1,0 +1,13 @@
+{
+    "name": "parshikovpavel/final-keyword",
+    "description": "Examples for learning from an article on habr.com",
+    "keywords": ["final", "habr.com"],
+    "homepage": "https://github.com/parshikovpavel/final-keyword",
+    "authors": [
+        {
+            "name": "Pavel Parshikov",
+            "email": "paw-p@yandex.ru",
+            "role": "Author"
+        }
+    ]
+}
