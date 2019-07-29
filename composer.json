@@ -9,5 +9,12 @@
             "email": "paw-p@yandex.ru",
             "role": "Author"
         }
-    ]
+    ],
+    "support": {
+        "email": "paw-p@yandex.ru"
+    },
+    "readme": "https://github.com/parshikovpavel/final-keyword/blob/master/README.md"
+    "require": {
+        "php": "^7.1"
+    }
 }
