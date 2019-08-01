@@ -13,8 +13,14 @@
     "support": {
         "email": "paw-p@yandex.ru"
     },
-    "readme": "https://github.com/parshikovpavel/final-keyword/blob/master/README.md"
+    "readme": "https://github.com/parshikovpavel/final-keyword/blob/master/README.md",
     "require": {
         "php": "^7.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "PPFinal": "src/"
+        }
     }
+
 }
