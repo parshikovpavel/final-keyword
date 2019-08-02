@@ -2,6 +2,8 @@
 
 namespace PPFinal\Introduction;
 
+use PPFinal\Comment;
+
 /**
  * Block of comments
  */

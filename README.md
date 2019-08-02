@@ -14,11 +14,15 @@ For convenience, below are links to source code files and examples of their use 
 
 ## Introduction
 
-[The source code](src/Introduction/CommentBlock.php) of the initial version of `CommentBlock` class.
+The initial version of [`CommentBlock`](src/Introduction/CommentBlock.php)  class.
 
 ## Inheritance issues
 
-### Inheritance violates the principle of information hiding 
+### The inheritance violates the principle of the information hiding 
+
+[`CommentBlock`](src/InheritanceIssues/InformationHiding/CommentBlock.php)  parent class and [`CustomCommentBlock`](src/InheritanceIssues/InformationHiding/CustomCommentBlock.php) child class demonstrating violation of the principle of the information hiding.
+
+### Banana-monkey-jungle problem
 
 
 
