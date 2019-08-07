@@ -10,13 +10,13 @@ use PPFinal\Comment;
 class CommentBlock
 {
     /**
-     * Array of comments
-     * @var Comment[]
+     * @var Comment[] Array of comments
      */
     protected $comments = [];
 
     /**
      * Get a comment by key in `$comments` array
+     *
      * @param int $key
      * @return Comment|null
      */

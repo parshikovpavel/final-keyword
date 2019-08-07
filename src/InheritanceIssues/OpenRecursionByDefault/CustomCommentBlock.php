@@ -1,6 +1,6 @@
 <?php
 
-namespace PPFinal\InheritanceIssues\InformationHiding;
+namespace PPFinal\InheritanceIssues\OpenRecursionByDefault;
 
 use PPFinal\Comment;
 

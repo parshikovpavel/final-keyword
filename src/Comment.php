@@ -8,13 +8,13 @@ namespace PPFinal;
 class Comment
 {
     /**
-     * Key of comment
-     * @var int
+     * @var int Key of comment
      */
     private $key;
 
     /**
      * Get key of comment
+     *
      * @return int
      */
     public function getKey(): int

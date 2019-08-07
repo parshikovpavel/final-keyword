@@ -24,5 +24,13 @@ The initial version of [`CommentBlock`](src/Introduction/CommentBlock.php)  clas
 
 ### Banana-monkey-jungle problem
 
+[`Block`](src/InheritanceIssues/BananaMonkeyJungleProblem/Block.php), 
+[`CommentBlock`](src/InheritanceIssues/BananaMonkeyJungleProblem/CommentBlock.php),
+[`PopularCommentBlock`](src/InheritanceIssues/BananaMonkeyJungleProblem/PopularCommentBlock.php),
+[`CachedPopularCommentBlock`](src/InheritanceIssues/BananaMonkeyJungleProblem/CachedPopularCommentBlock.php) 
+classes are examples of a deep inheritance hierarchy.
+
+### Open recursion by default
+
 
 

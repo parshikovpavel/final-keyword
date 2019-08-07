@@ -11,6 +11,7 @@ class CommentBlock
 {
     /**
      * Array of comments
+     *
      * @var Comment[]
      */
     private $comments = [];
