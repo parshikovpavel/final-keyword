@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "PPFinal": "src/"
+            "PPFinal": ["src/", "tests/"]
         }
     }
 

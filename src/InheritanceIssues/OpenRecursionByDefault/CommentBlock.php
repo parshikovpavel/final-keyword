@@ -15,6 +15,14 @@ class CommentBlock
     protected $comments = [];
 
     /**
+     * @param Comment[] $comments
+     */
+    public function __construct(array $comments)
+    {
+        $this->comments = $comments;
+    }
+
+    /**
      * Get a comment by key in `$comments` array
      *
      * @param int $key
