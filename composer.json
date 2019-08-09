@@ -19,8 +19,10 @@
     },
     "autoload": {
         "psr-4": {
-            "PPFinal": ["src/", "tests/"]
+            "PPFinal\\": ["src/", "tests/"]
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "7"
     }
-
 }
