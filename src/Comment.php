@@ -1,6 +1,6 @@
 <?php
 
-namespace PPFinal;
+namespace ppFinal;
 
 /**
  * Class of comment
@@ -37,6 +37,16 @@ class Comment
     public function getKey(): int
     {
         return $this->key;
+    }
+
+    /**
+     * Get a string view of the comment
+     *
+     * @return string
+     */
+    public function view(): string
+    {
+        return 'Comment content: ' . $this->content;
     }
 
 }

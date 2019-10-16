@@ -1,8 +1,8 @@
 <?php
 
-namespace PPFinal\Introduction;
+namespace ppFinal\Introduction;
 
-use PPFinal\Comment;
+use ppFinal\Comment;
 
 /**
  * Block of comments

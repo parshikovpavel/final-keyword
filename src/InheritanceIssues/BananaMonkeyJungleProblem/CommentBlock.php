@@ -1,6 +1,6 @@
 <?php
 
-namespace PPFinal\InheritanceIssues\BananaMonkeyJungleProblem;
+namespace ppFinal\InheritanceIssues\BananaMonkeyJungleProblem;
 
 /**
  * Class CommentBlock

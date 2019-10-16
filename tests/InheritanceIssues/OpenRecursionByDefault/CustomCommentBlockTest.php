@@ -1,9 +1,9 @@
 <?php
 
-namespace PPFinal\InheritanceIssues\OpenRecursionByDefault;
+namespace ppFinal\InheritanceIssues\OpenRecursionByDefault;
 
 use PHPUnit\Framework\TestCase;
-use PPFinal\Comment;
+use ppFinal\Comment;
 
 final class CustomCommentBlockTest extends TestCase
 {

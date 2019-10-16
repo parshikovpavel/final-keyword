@@ -1,8 +1,8 @@
 <?php
 
-namespace PPFinal\InheritanceIssues\OpenRecursionByDefault;
+namespace ppFinal\InheritanceIssues\OpenRecursionByDefault;
 
-use PPFinal\Comment;
+use ppFinal\Comment;
 
 /**
  * Block of comments

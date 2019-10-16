@@ -1,8 +1,8 @@
 <?php
 
-namespace PPFinal\InheritanceIssues\ControlOfSideEffects;
+namespace ppFinal\InheritanceIssues\ControlOfSideEffects;
 
-use PPFinal\Comment;
+use ppFinal\Comment;
 
 /**
  * Block of comments
@@ -15,11 +15,11 @@ class CommentBlock
     protected $comments = [];
 
     /**
-     * Set array of comments
+     * CommentBlock constructor
      *
-     * @param array $comments
+     * @param Comment[] $comments
      */
-    public function setComments(array $comments): void
+    public function __construct(array $comments)
     {
         $this->comments = $comments;
     }

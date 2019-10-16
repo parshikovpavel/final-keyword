@@ -24,30 +24,19 @@ The initial version of [`CommentBlock`](src/Introduction/CommentBlock.php)  clas
 
 ### Banana-monkey-jungle problem
 
-[`Block`](src/InheritanceIssues/BananaMonkeyJungleProblem/Block.php), 
-[`CommentBlock`](src/InheritanceIssues/BananaMonkeyJungleProblem/CommentBlock.php),
-[`PopularCommentBlock`](src/InheritanceIssues/BananaMonkeyJungleProblem/PopularCommentBlock.php),
-[`CachedPopularCommentBlock`](src/InheritanceIssues/BananaMonkeyJungleProblem/CachedPopularCommentBlock.php) 
-classes are examples of a deep inheritance hierarchy.
+[`Block`](src/InheritanceIssues/BananaMonkeyJungleProblem/Block.php), [`CommentBlock`](src/InheritanceIssues/BananaMonkeyJungleProblem/CommentBlock.php), [`PopularCommentBlock`](src/InheritanceIssues/BananaMonkeyJungleProblem/PopularCommentBlock.php), [`CachedPopularCommentBlock`](src/InheritanceIssues/BananaMonkeyJungleProblem/CachedPopularCommentBlock.php) classes are examples of a deep inheritance hierarchy.
 
 ### Open recursion by default
 
-[`CommentComment::getComment()`](src/InheritanceIssues/OpenRecursionByDefault/CommentBlock.php#L31) 
-and [`CustomCommentBlock::getComment()`](src/InheritanceIssues/OpenRecursionByDefault/CustomCommentBlock.php#L34) 
-have different implementations of behavior. 
-[`CommentBlock::getComments()`](src/InheritanceIssues/OpenRecursionByDefault/CommentBlock.php#L46) method makes 
-a [self-call](src/InheritanceIssues/OpenRecursionByDefault/CommentBlock.php#L50) of `$this->getComments()` and 
-relies on the implementation of behavior in the `CommentBlock` class.
+[`CommentComment::getComment()`](src/InheritanceIssues/OpenRecursionByDefault/CommentBlock.php#L31) and [`CustomCommentBlock::getComment()`](src/InheritanceIssues/OpenRecursionByDefault/CustomCommentBlock.php#L34) have different implementations of behavior. [`CommentBlock::getComments()`](src/InheritanceIssues/OpenRecursionByDefault/CommentBlock.php#L46) method makes 
+a [self-call](src/InheritanceIssues/OpenRecursionByDefault/CommentBlock.php#L50) of `$this->getComments()` and relies on the implementation of behavior in the `CommentBlock` class.
 
-`CommentBlock::getComments()` implementations, 
-which is automatically inherited by `CustomCommentBlock`, is incompatible 
-with the behavior of `CustomCommentBlock::getComment()` method.
-So getting a list of comments doesn't work correctly. You can see this by executing the following test:
+`CommentBlock::getComments()` implementations, which is automatically inherited by `CustomCommentBlock`, is incompatible with the behavior of `CustomCommentBlock::getComment()` method. So getting a list of comments doesn't work correctly. You can see this by executing [the following test](tests/InheritanceIssues/OpenRecursionByDefault/CustomCommentBlockTest.php):
 
 ```bash
 $ ./vendor/bin/phpunit tests/InheritanceIssues/OpenRecursionByDefault/CustomCommentBlockTest.php --testdox
 
-PPFinal\InheritanceIssues\OpenRecursionByDefault\CustomCommentBlock
+ppFinal\InheritanceIssues\OpenRecursionByDefault\CustomCommentBlock
  ✘ Returns correct list of comments
    │
    │ Failed asserting that two arrays are equal.
@@ -55,8 +44,8 @@ PPFinal\InheritanceIssues\OpenRecursionByDefault\CustomCommentBlock
    │ +++ Actual
    │ @@ @@
    │  Array (
-   │ -    0 => PPFinal\Comment Object (...)
-   │ -    1 => PPFinal\Comment Object (...)
+   │ -    0 => ppFinal\Comment Object (...)
+   │ -    1 => ppFinal\Comment Object (...)
    │ +    0 => null
    │ +    1 => null
    │  )

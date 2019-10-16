@@ -1,8 +1,8 @@
 <?php
 
-namespace PPFinal\InheritanceIssues\InformationHiding;
+namespace ppFinal\InheritanceIssues\InformationHiding;
 
-use PPFinal\Comment;
+use ppFinal\Comment;
 
 /**
  * Custom block of comments

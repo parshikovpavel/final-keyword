@@ -3,6 +3,8 @@
     "description": "Examples for learning from an article on habr.com",
     "keywords": ["final", "habr.com"],
     "homepage": "https://github.com/parshikovpavel/final-keyword",
+    "type": "project",
+    "license": "MIT",
     "authors": [
         {
             "name": "Pavel Parshikov",
@@ -15,11 +17,12 @@
     },
     "readme": "https://github.com/parshikovpavel/final-keyword/blob/master/README.md",
     "require": {
-        "php": "^7.1"
+        "php": "^7.1",
+        "parshikovpavel/array-cache" : "*"
     },
     "autoload": {
         "psr-4": {
-            "PPFinal\\": ["src/", "tests/"]
+            "ppFinal\\": ["src/", "tests/"]
         }
     },
     "require-dev": {
