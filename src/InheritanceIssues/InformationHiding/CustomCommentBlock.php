@@ -31,7 +31,7 @@ class CustomCommentBlock extends CommentBlock
      * @param int $key
      * @return Comment|null
      */
-    public function getComment(int $key) : ?Comment
+    public function getComment(int $key): ?Comment
     {
         foreach ($this->comments as $comment) {
             if ($comment->getKey() === $key) {

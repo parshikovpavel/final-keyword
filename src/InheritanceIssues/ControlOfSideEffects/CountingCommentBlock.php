@@ -27,7 +27,16 @@ class CountingCommentBlock extends CommentBlock
         $this->cache = $cache;
     }
 
-
+    /**
+     * Returns a string view of the comment and increments the counter value in the cache
+     * @param int $key
+     * @return string
+     */
+    public function viewComment(int $key): string
+    {
+        $this->cache->inc($key);
+        return parent::viewComment($key);
+    }
 
 
 }

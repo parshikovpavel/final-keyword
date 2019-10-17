@@ -25,12 +25,12 @@ class CommentBlock
     }
 
     /**
-     * Return a string view of the comment to output to the template
+     * Returns a string view of the comment to output to the template
      *
      * @param int $key
      * @return string
      */
-    public function viewComment(int $key) : string
+    public function viewComment(int $key): string
     {
         return $this->comments[$key]->view();
     }

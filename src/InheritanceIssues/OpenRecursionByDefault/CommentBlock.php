@@ -43,7 +43,7 @@ class CommentBlock
      *
      * @return array
      */
-    public function getComments() : array
+    public function getComments(): array
     {
         $comments = [];
         foreach ($this->comments as $key => $comment) {
