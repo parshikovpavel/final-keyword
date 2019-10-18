@@ -23,10 +23,10 @@ class Comment
      * @param int $key
      * @param string $content
      */
-    public function __construct(int $key, string $content)
+    public function __construct(string $content, ?int $key = null)
     {
-        $this->key = $key;
         $this->content = $content;
+        $this->key = $key;
     }
 
     /**

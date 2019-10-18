@@ -34,4 +34,18 @@ class CommentBlock
     {
         return $this->comments[$key]->view();
     }
+
+    /**
+     * Returns a string view of all comments in the block as a single string
+     *
+     * @return string
+     */
+    public function viewComments(): string
+    {
+        $view = '';
+        foreach($this->comments as $key => $comment) {
+            $view .= $comment->view();
+        }
+        return $view;
+    }
 }

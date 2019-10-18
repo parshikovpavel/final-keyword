@@ -34,7 +34,7 @@ class CountingCommentBlock extends CommentBlock
      */
     public function viewComment(int $key): string
     {
-        $this->cache->inc($key);
+        $this->cache->increment($key);
         return parent::viewComment($key);
     }
 

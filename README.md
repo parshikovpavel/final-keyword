@@ -54,4 +54,6 @@ FAILURES!
 Tests: 1, Assertions: 1, Failures: 1.
 ```
 
+### Control of side effects
 
+[`CountingCommentBlock`](src/InheritanceIssues/ControlOfSideEffects/CountingCommentBlock.php) is a specific type of [`CommentBlock`](src/InheritanceIssues/ControlOfSideEffects/CommentBlock.php)  counting views of particular comments in a PSR-16 compatible cache. [`CountingCommentBlock::viewComment()`](src/InheritanceIssues/ControlOfSideEffects/CountingCommentBlock.php#35) has a side effect since increments the counter value in the cache.
