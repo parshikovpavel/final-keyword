@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use ppFinal\Comment;
 use ppCache\CountingCache;
 
-final class CustomCommentBlockTest extends TestCase
+final class CountingCommentBlockTest extends TestCase
 {
     public function testCountsViewsOfComment(): void
     {
