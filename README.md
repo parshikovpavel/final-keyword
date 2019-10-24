@@ -71,3 +71,21 @@ FAILURES!
 Tests: 1, Assertions: 1, Failures: 1.
 ```
 
+### Base class fragility
+
+
+
+```bash
+$ ./vendor/bin/phpunit tests/InheritanceIssues/BaseClassFragility/CountingCommentBlockTest.php --testdox
+
+ppFinal\InheritanceIssues\BaseClassFragility\CountingCommentBlock
+ ✘ Counts views of comment
+   │
+   │ Failed asserting that 2 matches expected 1.
+   │
+   │
+
+FAILURES!
+Tests: 1, Assertions: 1, Failures: 1.
+```
+

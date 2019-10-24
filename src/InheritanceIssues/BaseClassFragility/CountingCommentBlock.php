@@ -1,6 +1,6 @@
 <?php
 
-namespace ppFinal\InheritanceIssues\ControlOfSideEffects;
+namespace ppFinal\InheritanceIssues\BaseClassFragility;
 
 use ppFinal\Comment;
 use ppCache\CounterInterface;
@@ -38,5 +38,16 @@ class CountingCommentBlock extends CommentBlock
         return parent::viewComment($key);
     }
 
-
+    /**
+     * Returns a string view of all comments in the block as a single string
+     * and increments the counter values in the cache
+     * @return string
+     */
+    public function viewComments(): string
+    {
+        foreach ($this->comments as $key => $comment) {
+            $this->cache->increment($key);
+        }
+        return parent::viewComments();
+    }
 }
