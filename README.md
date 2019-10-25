@@ -1,3 +1,5 @@
+<u>Table of contents</u>
+
 # Restriction of inheritance using the final keyword to reach loose coupling in the application design
 
 The repository contains the code examples for learning from the article on habr.com
@@ -56,7 +58,7 @@ Tests: 1, Assertions: 1, Failures: 1.
 
 ### Control of side effects
 
-[`CountingCommentBlock`](src/InheritanceIssues/ControlOfSideEffects/CountingCommentBlock.php) is a specific type of [`CommentBlock`](src/InheritanceIssues/ControlOfSideEffects/CommentBlock.php)  counting views of particular comments in a PSR-16 compatible cache. [`CountingCommentBlock::viewComment()`](src/InheritanceIssues/ControlOfSideEffects/CountingCommentBlock.php#35) has a side effect since increments the counter value in the cache. [`CommentBlock::viewComments()`](src/InheritanceIssues/ControlOfSideEffects/CommentBlock.php#43) combines the comment views into a single view and its implementation is inherited by `CountingCommentBlock` exactly as it is. However this inherited implementation doesn't take into account `CountingCommentBlock` responsibility for counting comment views in the cache. As a result, view counters don't work correctly during calls to `CountingCommentBlock::viewComments()`. The test result below demonstrates this thought:
+[`CountingCommentBlock`](src/InheritanceIssues/ControlOfSideEffects/CountingCommentBlock.php) is a specific type of [`CommentBlock`](src/InheritanceIssues/ControlOfSideEffects/CommentBlock.php)  counting views of particular comments in a PSR-16 compatible cache. [`CountingCommentBlock::viewComment()`](src/InheritanceIssues/ControlOfSideEffects/CountingCommentBlock.php#35) has a side effect since increments the counter value in the cache. [`CommentBlock::viewComments()`](src/InheritanceIssues/ControlOfSideEffects/CommentBlock.php#43) combines the comment views into a single view and its implementation is inherited by `CountingCommentBlock` exactly as it is. However this inherited implementation doesn't take into account `CountingCommentBlock` responsibility for counting comment views in the cache. As a result, view counters don't work correctly during calls to `CountingCommentBlock::viewComments()`. The [test](tests/InheritanceIssues/ControlOfSideEffects/CountingCommentBlockTest.php) result below demonstrates this thought:
 
 ```bash
 $ ./vendor/bin/phpunit tests/InheritanceIssues/ControlOfSideEffects/CountingCommentBlockTest.php --testdox
@@ -73,7 +75,15 @@ Tests: 1, Assertions: 1, Failures: 1.
 
 ### Base class fragility
 
+An inheritable base class are "fragile" because seemingly safe modifications to it, may cause the derived classes to malfunction. The programmer cannot determine whether a base class change is safe simply by examining in isolation the methods of the base class. So the implementation detail of the base and the derived classes become tightly related.
 
+For example, during code refactoring the programmer change [a single line](src/InheritanceIssues/BaseClassFragility/CommentBlock.php#47) in `CommentBlock::viewComments()` method to simplify the code and to avoid code duplicate in the future.
+
+```
+$view .= $comment->view();   ------>   $view .= $this->viewComment($key);
+```
+
+The base class logic remains valid and it continues to pass the tests successfully. However base class isn't completely isolated. As a result,  calling  `CountingCommentBlock::viewComments()` causes double increment of a view counter value. You can explore the problem in detail by studying the [corresponding test](tests/InheritanceIssues/BaseClassFragility/CountingCommentBlockTest.php):
 
 ```bash
 $ ./vendor/bin/phpunit tests/InheritanceIssues/BaseClassFragility/CountingCommentBlockTest.php --testdox
@@ -89,3 +99,6 @@ FAILURES!
 Tests: 1, Assertions: 1, Failures: 1.
 ```
 
+## Applying the final keyword to improve design
+
+### Template method pattern
