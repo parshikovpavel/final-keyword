@@ -111,3 +111,11 @@ The final [`SimpleCommentBlock`](src/ApplyingFinalKeyword/TemplateMethodPattern/
 
 The final [`CountingCommentBlock`](src/ApplyingFinalKeyword/TemplateMethodPattern/CountingCommentBlock.php) class includes different behavior implemented in [`CountingCommentBlock::viewComment()`](src/ApplyingFinalKeyword/TemplateMethodPattern/CountingCommentBlock.php#L30-L34). In addition to returning a string view of the comment, this method increments the counter value in the cache.
 
+### Prefer interface implementation to inheritance
+
+Let's avoid any class coupling by implementation details. 
+
+The [CommentBlock](src/ApplyingFinalKeyword/PreferInterfaceImplementation/CommentBlock.php) is an interface which defines the contract and hides implementation details.
+
+The [SimpleCommentBlock](src/ApplyingFinalKeyword/PreferInterfaceImplementation/SimpleCommentBlock.php) and [CountingCommentBlock](src/ApplyingFinalKeyword/PreferInterfaceImplementation/CountingCommentBlock.php) are final classes that implement this interface but don't have a direct association. As a disadvantage, this classes have the same duplicate implementation of [viewComments()](src/ApplyingFinalKeyword/PreferInterfaceImplementation/SimpleCommentBlock.php#L33-L40) method.
+

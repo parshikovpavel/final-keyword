@@ -1,6 +1,6 @@
 <?php
 
-namespace ppFinal\ApplyingFinalKeyword\PreferInterfaceImplementation;
+namespace ppFinal\ApplyingFinalKeyword\PreferAggregation;
 
 use ppFinal\Comment;
 
@@ -12,7 +12,15 @@ final class SimpleCommentBlock implements CommentBlock
     /**
      * @var Comment[] Array of comments
      */
-    protected $comments = [];
+    private $comments = [];
+
+    /**
+     * @inheritDoc
+     */
+    public function getCommentKeys(): array
+    {
+        return array_keys($this->comments);
+    }
 
     /**
      * @inheritDoc
