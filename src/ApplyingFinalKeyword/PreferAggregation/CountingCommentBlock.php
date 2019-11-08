@@ -1,9 +1,8 @@
 <?php
 
-namespace ppFinal\ApplyingFinalKeyword\PreferInterfaceImplementation;
+namespace ppFinal\ApplyingFinalKeyword\PreferAggregation;
 
 use ppCache\CounterInterface;
-use ppFinal\Comment;
 
 /**
  * Block of comments counting views
@@ -11,9 +10,9 @@ use ppFinal\Comment;
 final class CountingCommentBlock implements CommentBlock
 {
     /**
-     * @var Comment[] Array of comments
+     * @var CommentBlock Decorated comment block
      */
-    protected $comments = [];
+    private $commentBlock;
 
     /**
      * @var CounterInterface PSR-16 compatible cache
@@ -22,13 +21,23 @@ final class CountingCommentBlock implements CommentBlock
 
     /**
      * CountingCommentBlock constructor
-     *
+     * @param CommentBlock $commentBlock
      * @param CounterInterface $cache
      */
-    public function __construct(CounterInterface $cache)
+    public function __construct(CommentBlock $commentBlock, CounterInterface $cache)
     {
+        $this->commentBlock = $commentBlock;
         $this->cache = $cache;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getCommentKeys(): array
+    {
+        return $this->commentBlock->getCommentKeys();
+    }
+
     /**
      * Returns a string view of the comment and increments the counter value in the cache
      *
@@ -37,8 +46,8 @@ final class CountingCommentBlock implements CommentBlock
      */
     public function viewComment(int $key): string
     {
-        $this->cache->inc($key);
-        return $this->comments[$key]->view();
+        $this->cache->increment($key);
+        return $this->commentBlock->viewComment($key);
     }
 
     /**
@@ -47,13 +56,13 @@ final class CountingCommentBlock implements CommentBlock
      *
      * @return string
      */
-    public function viewComments(): string
+    public function viewComments() : string
     {
-        $view = '';
-        foreach($this->comments as $key => $comment) {
-            $view .= $this->viewComment($key);
+        $commentKeys = $this->getCommentKeys();
+        foreach ($commentKeys as $commentKey) {
+            $this->cache->increment($commentKey);
         }
-        return $view;
+        return $this->commentBlock->viewComments();
     }
 }
 

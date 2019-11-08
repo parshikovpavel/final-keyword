@@ -25,21 +25,36 @@ final class SimpleCommentBlock implements CommentBlock
     /**
      * @inheritDoc
      */
-    public function viewComment(int $key) : string
+    public function viewComment(int $key): string
     {
         return $this->comments[$key]->view();
     }
 
     /**
-     * @inheritDoc
+     * Method with changed implementation details
+     *
+     * {@inheritDoc}
      */
     public function viewComments(): string
     {
         $view = '';
         foreach($this->comments as $key => $comment) {
-            $view .= $this->viewComment($key);
+            /* Instead of `$this->viewComment()` calling direct call to the `view()` comment method is made */
+            $view .= $this->comments[$key]->view();
         }
         return $view;
+    }
+
+    /**
+     * New method
+     * Returns a string view of a random comment
+     *
+     * @return string
+     */
+    public function viewRandomComment(): string
+    {
+        $key = array_rand($this->comments);
+        return $this->comments[$key]->view();
     }
 }
 
