@@ -115,16 +115,18 @@ The final [`CountingCommentBlock`](src/ApplyingFinalKeyword/TemplateMethodPatter
 
 Let's avoid any class coupling by implementation details. 
 
-The [CommentBlock](src/ApplyingFinalKeyword/PreferInterfaceImplementation/CommentBlock.php) is an interface which defines the contract and hides implementation details.
+The [`CommentBlock`](src/ApplyingFinalKeyword/PreferInterfaceImplementation/CommentBlock.php) is an interface which defines the contract and hides implementation details.
 
-The [SimpleCommentBlock](src/ApplyingFinalKeyword/PreferInterfaceImplementation/SimpleCommentBlock.php) and [CountingCommentBlock](src/ApplyingFinalKeyword/PreferInterfaceImplementation/CountingCommentBlock.php) are final classes that implement this interface but don't have a direct association. As a disadvantage, this classes have the same duplicate implementation of [viewComments()](src/ApplyingFinalKeyword/PreferInterfaceImplementation/SimpleCommentBlock.php#L33-L40) method.
+The [`SimpleCommentBlock`](src/ApplyingFinalKeyword/PreferInterfaceImplementation/SimpleCommentBlock.php) and [`CountingCommentBlock`](src/ApplyingFinalKeyword/PreferInterfaceImplementation/CountingCommentBlock.php) are final classes that implement this interface but don't have a direct association. As a disadvantage, this classes have the same duplicate implementation of [`viewComments()`](src/ApplyingFinalKeyword/PreferInterfaceImplementation/SimpleCommentBlock.php#L33-L40) method.
 
 ### Prefer aggregation to inheritance
 
 The aggregation is the loosest relationship type. Let's use the aggregation in the form of the decorator pattern to replace the inheritance.
 
-The [CommentBlock](src/ApplyingFinalKeyword/PreferAggregation/CommentBlock.php) is an interface which defines the contract and hides implementation details. 
+The [`CommentBlock`](src/ApplyingFinalKeyword/PreferAggregation/CommentBlock.php) is an interface which defines the contract and hides implementation details. 
 
-The [SimpleCommentBlock](src/ApplyingFinalKeyword/PreferAggregation/SimpleCommentBlock.php) is a base final class with base behavior that implements the mentioned interface. 
+The [`SimpleCommentBlock`](src/ApplyingFinalKeyword/PreferAggregation/SimpleCommentBlock.php) is a base final class with base behavior that implements the mentioned interface. 
 
-The [CountingCommentBlock](src/ApplyingFinalKeyword/PreferAggregation/CountingCommentBlock.php) is similar to a child class. It stores a reference to the decorated object,  forwards all calls to it and implements additional behavior.
+The [`CountingCommentBlock`](src/ApplyingFinalKeyword/PreferAggregation/CountingCommentBlock.php) is similar to a child class. It stores [a reference](src/ApplyingFinalKeyword/PreferAggregation/CountingCommentBlock.php#L15) to the decorated object,  forwards all calls to it and implements additional behavior. [`CountingCommentBlock::viewComment()`](src/ApplyingFinalKeyword/PreferAggregation/CountingCommentBlock.php#L47-L51) и [`CountingCommentBlock::viewComments()`](src/ApplyingFinalKeyword/PreferAggregation/CountingCommentBlock.php#L56-L66) add cache capabilities. [`CountingCommentBlock::getCommentKeys()`](src/ApplyingFinalKeyword/PreferAggregation/CountingCommentBlock.php#L36-L39) is a simple single-line function that just transfers  responsibility for the execution to the nested object.
+
+[`SimpleCommentBlock`](src/ApplyingFinalKeyword/PreferAggregation/SimpleCommentBlock.php) и [`CountingCommentBlock`](src/ApplyingFinalKeyword/PreferAggregation/CountingCommentBlock.php) maintain polymorphic behavior since both implement [`CommentBlock`](src/ApplyingFinalKeyword/PreferAggregation/CommentBlock.php) interface. Clients interacts with them transparently through the interface.
