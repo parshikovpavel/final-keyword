@@ -56,5 +56,13 @@ final class SimpleCommentBlock implements CommentBlock
         $key = array_rand($this->comments);
         return $this->comments[$key]->view();
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function setComments(array $comments): void
+    {
+        $this->comments = $comments;
+    }
 }
 

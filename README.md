@@ -130,3 +130,16 @@ The [`SimpleCommentBlock`](src/ApplyingFinalKeyword/PreferAggregation/SimpleComm
 The [`CountingCommentBlock`](src/ApplyingFinalKeyword/PreferAggregation/CountingCommentBlock.php) is similar to a child class. It stores [a reference](src/ApplyingFinalKeyword/PreferAggregation/CountingCommentBlock.php#L15) to the decorated object,  forwards all calls to it and implements additional behavior. [`CountingCommentBlock::viewComment()`](src/ApplyingFinalKeyword/PreferAggregation/CountingCommentBlock.php#L47-L51) и [`CountingCommentBlock::viewComments()`](src/ApplyingFinalKeyword/PreferAggregation/CountingCommentBlock.php#L56-L66) add cache capabilities. [`CountingCommentBlock::getCommentKeys()`](src/ApplyingFinalKeyword/PreferAggregation/CountingCommentBlock.php#L36-L39) is a simple single-line function that just transfers  responsibility for the execution to the nested object.
 
 [`SimpleCommentBlock`](src/ApplyingFinalKeyword/PreferAggregation/SimpleCommentBlock.php) и [`CountingCommentBlock`](src/ApplyingFinalKeyword/PreferAggregation/CountingCommentBlock.php) maintain polymorphic behavior since both implement [`CommentBlock`](src/ApplyingFinalKeyword/PreferAggregation/CommentBlock.php) interface. Clients interacts with them transparently through the interface.
+
+`SimpleCommentBlock` и `CountingCommentBlock` are coupled through an aggregation. For this reason they are devoid of all disadvantages of the inheritance: the base class fragility problem, the information hiding principle violation, etc.
+
+```bash
+$ ./vendor/bin/phpunit tests/ApplyingFinalKeyword/PreferAggregation/CountingCommentBlockTest.php --testdox
+
+ppFinal\ApplyingFinalKeyword\PreferAggregation\CountingCommentBlock
+ ✔ Counts views of comment
+
+OK (1 test, 2 assertions)
+
+```
+

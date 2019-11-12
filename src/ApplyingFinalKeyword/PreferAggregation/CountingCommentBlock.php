@@ -64,5 +64,13 @@ final class CountingCommentBlock implements CommentBlock
         }
         return $this->commentBlock->viewComments();
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function setComments(array $comments): void
+    {
+        $this->commentBlock->setComments($comments);
+    }
 }
 

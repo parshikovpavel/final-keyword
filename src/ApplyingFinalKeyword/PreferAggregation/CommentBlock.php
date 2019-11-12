@@ -28,4 +28,11 @@ interface CommentBlock
      * @return string
      */
     public function viewComments(): string;
+
+    /**
+     * Setter of an array of comments
+     *
+     * @param array $comments
+     */
+    public function setComments(array $comments): void;
 }
