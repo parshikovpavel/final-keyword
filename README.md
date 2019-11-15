@@ -131,7 +131,7 @@ The [`CountingCommentBlock`](src/ApplyingFinalKeyword/PreferAggregation/Counting
 
 [`SimpleCommentBlock`](src/ApplyingFinalKeyword/PreferAggregation/SimpleCommentBlock.php) и [`CountingCommentBlock`](src/ApplyingFinalKeyword/PreferAggregation/CountingCommentBlock.php) maintain polymorphic behavior since both implement [`CommentBlock`](src/ApplyingFinalKeyword/PreferAggregation/CommentBlock.php) interface. Clients interacts with them transparently through the interface.
 
-`SimpleCommentBlock` и `CountingCommentBlock` are coupled through an aggregation. For this reason they are devoid of all disadvantages of the inheritance: the base class fragility problem, the information hiding principle violation, etc.
+`SimpleCommentBlock` и `CountingCommentBlock` are coupled through an aggregation. For this reason they are devoid of all disadvantages of the inheritance: the base class fragility problem, the information hiding principle violation, etc. Changing the implementation detail of the base class doesn't affect the behavior and the structure of the derived class. As shown below all assertions which verify the `CountingCommentBlock` behavior are successful.
 
 ```bash
 $ ./vendor/bin/phpunit tests/ApplyingFinalKeyword/PreferAggregation/CountingCommentBlockTest.php --testdox
@@ -140,6 +140,6 @@ ppFinal\ApplyingFinalKeyword\PreferAggregation\CountingCommentBlock
  ✔ Counts views of comment
 
 OK (1 test, 2 assertions)
-
 ```
 
+### A class must be prepared for the inheritance
