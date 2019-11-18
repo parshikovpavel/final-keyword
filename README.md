@@ -143,3 +143,9 @@ OK (1 test, 2 assertions)
 ```
 
 ### A class must be prepared for the inheritance
+
+The inheritance violates the principle of the information hiding. So it's necessary to document in PHPDoc not only a public interface but also the internal implementation details.
+
+The [`CommentBlock::viewComment()`](src/ApplyingFinalKeyword/PreparationForInheritance/CommentBlock.php#L17-L32) is a non-final method that allows to override the implementation. Therefore [this method's PHPDoc](src/ApplyingFinalKeyword/PreparationForInheritance/CommentBlock.php#L17-28) describes the use of parameters and the existing side effects.
+
+The [`CommentBlock::viewComments()`](src/ApplyingFinalKeyword/PreparationForInheritance/CommentBlock.php#L34-L50) is a final method however it uses the non-final method mentioned above. Overriding of the non-final `CommentBlock::viewComment()` method in the subclasses affects the behavior of the final inherited `CommentBlock::viewComments()` method. Therefore [its PHPDoc](src/ApplyingFinalKeyword/PreparationForInheritance/CommentBlock.php#L34-L42) reveals the schema of using all non-final methods.

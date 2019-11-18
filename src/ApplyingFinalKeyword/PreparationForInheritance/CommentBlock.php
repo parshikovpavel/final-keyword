@@ -40,7 +40,7 @@ class CommentBlock
      *
      * @return string String view of all comments
      */
-    public function viewComments(): string
+    final public function viewComments(): string
     {
         $view = '';
         foreach($this->comments as $key => $comment) {
