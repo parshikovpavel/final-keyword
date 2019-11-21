@@ -149,3 +149,11 @@ The inheritance violates the principle of the information hiding. So it's necess
 The [`CommentBlock::viewComment()`](src/ApplyingFinalKeyword/PreparationForInheritance/CommentBlock.php#L17-L32) is a non-final method that allows to override the implementation. Therefore [this method's PHPDoc](src/ApplyingFinalKeyword/PreparationForInheritance/CommentBlock.php#L17-28) describes the use of parameters and the existing side effects.
 
 The [`CommentBlock::viewComments()`](src/ApplyingFinalKeyword/PreparationForInheritance/CommentBlock.php#L34-L50) is a final method however it uses the non-final method mentioned above. Overriding of the non-final `CommentBlock::viewComment()` method in the subclasses affects the behavior of the final inherited `CommentBlock::viewComments()` method. Therefore [its PHPDoc](src/ApplyingFinalKeyword/PreparationForInheritance/CommentBlock.php#L34-L42) reveals the schema of using all non-final methods.
+
+### A class must be prepared for the aggregation
+
+The general schema to create a loosely coupled design consists of the following steps:
+
+1. An initial class ([`SimpleCommentBlock`](src/ApplyingFinalKeyword/PreparationForAggregation/SimpleCommentBlock.php)) is introduced into a design with the `final` keyword and the inheritance restriction.
+2. To expand the functionality of the class you need to analyze the base class behavior, form its contract and to formally describe it as an interface ([`CommentBlock`](src/ApplyingFinalKeyword/PreparationForAggregation/CommentBlock.php)).
+3. Introduce into a design a derived decorator class ([`CountingCommentBlock`](src/ApplyingFinalKeyword/PreparationForAggregation/CountingCommentBlock.php)) which expands the functionality of the base class and implements the same interface. An instance of the base class (`SimpleCommentBlock`) is injected into the constructor of the derived class (`CountingCommentBlock`) through the interface (`CommentBlock`).
