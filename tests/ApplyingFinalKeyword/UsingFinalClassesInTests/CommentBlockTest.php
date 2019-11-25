@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 final class CommentBlockTest extends TestCase
 {
-    public function testUsingTestDouble(): void
+    public function testCreatingTestDouble(): void
     {
         $mock = $this->createMock(CommentBlock::class);
     }

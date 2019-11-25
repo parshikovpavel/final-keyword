@@ -157,3 +157,22 @@ The general schema to create a loosely coupled design consists of the following 
 1. An initial class ([`SimpleCommentBlock`](src/ApplyingFinalKeyword/PreparationForAggregation/SimpleCommentBlock.php)) is introduced into a design with the `final` keyword and the inheritance restriction.
 2. To expand the functionality of the class you need to analyze the base class behavior, form its contract and to formally describe it as an interface ([`CommentBlock`](src/ApplyingFinalKeyword/PreparationForAggregation/CommentBlock.php)).
 3. Introduce into a design a derived decorator class ([`CountingCommentBlock`](src/ApplyingFinalKeyword/PreparationForAggregation/CountingCommentBlock.php)) which expands the functionality of the base class and implements the same interface. An instance of the base class (`SimpleCommentBlock`) is injected into the constructor of the derived class (`CountingCommentBlock`) through the interface (`CommentBlock`).
+
+### Using final classes in tests
+
+Most unit test libraries use the inheritance to construct test doubles (stubs, mocks, etc). Therefore attempt to mock final class using PHPUnit results in a warning like this:
+
+```bash
+$ ./vendor/bin/phpunit tests/ApplyingFinalKeyword/UsingFinalClassesInTests/SimpleCommentBlockTest.php --filter testCreatingTestDouble --testdox
+
+ppFinal\ApplyingFinalKeyword\UsingFinalClassesInTests\SimpleCommentBlock
+ ✘ Creating test double
+   │
+   │ Class "ppFinal\ApplyingFinalKeyword\UsingFinalClassesInTests\SimpleCommentBlock" is declared "final" and cannot be mocked.
+   │
+
+```
+
+
+
+

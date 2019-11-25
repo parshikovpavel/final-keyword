@@ -3,15 +3,18 @@
 namespace ppFinal\ApplyingFinalKeyword\UsingFinalClassesInTests;
 
 use PHPUnit\Framework\TestCase;
+use \Mockery;
+use \DG\BypassFinals;
+
 
 final class SimpleCommentBlockTest extends TestCase
 {
-    public function testUsingTestDouble(): void
+    public function testCreatingTestDouble(): void
     {
         $mock = $this->createMock(SimpleCommentBlock::class);
     }
 
-    public function testUsingProxyDouble(): void
+    public function testCreatingProxyDouble(): void
     {
         /* The instance of the original class */
         $simpleCommentBlock = new SimpleCommentBlock();
@@ -21,7 +24,7 @@ final class SimpleCommentBlockTest extends TestCase
 
         /* Stubbing method behavior */
         $proxy->shouldReceive('viewComment')
-            ->andReturn('text');
+              ->andReturn('text');
 
         /* Checking stubbing method behavior */
         $this->assertEquals('text', $proxy->viewComment(1));
@@ -29,4 +32,13 @@ final class SimpleCommentBlockTest extends TestCase
         /* `$proxy` isn't an instance of the `SimpleCommentBlock` class */
         $this->assertNotInstanceOf(SimpleCommentBlock::class, $proxy);
     }
+
+    public function testUsingBypassFinals(): void
+    {
+        BypassFinals::enable();
+
+        $mock = $this->createMock(SimpleCommentBlock::class);
+    }
+
+
 }
