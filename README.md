@@ -160,7 +160,7 @@ The general schema to create a loosely coupled design consists of the following 
 
 ### Using final classes in tests
 
-Most unit test libraries use the inheritance to construct test doubles (stubs, mocks, etc). Therefore attempt to mock final class using PHPUnit results in a warning like this:
+Most unit test libraries use the inheritance to construct test doubles (stubs, mocks, etc). Therefore an attempt to mock final class in a [PHPUnit test](tests/ApplyingFinalKeyword/UsingFinalClassesInTests/SimpleCommentBlockTest.php#L14) results in a warning like this:
 
 ```bash
 $ ./vendor/bin/phpunit tests/ApplyingFinalKeyword/UsingFinalClassesInTests/SimpleCommentBlockTest.php --filter testCreatingTestDouble --testdox
@@ -173,6 +173,6 @@ ppFinal\ApplyingFinalKeyword\UsingFinalClassesInTests\SimpleCommentBlock
 
 ```
 
-
+You can use the following approaches to solve the mentioned problem.
 
 
