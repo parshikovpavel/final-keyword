@@ -160,7 +160,13 @@ The general schema to create a loosely coupled design consists of the following 
 
 ### Using final classes in tests
 
-Most unit test libraries use the inheritance to construct test doubles (stubs, mocks, etc). Therefore an attempt to mock final class in a [PHPUnit test](tests/ApplyingFinalKeyword/UsingFinalClassesInTests/SimpleCommentBlockTest.php#L14) results in a warning like this:
+Most unit test libraries use the inheritance to construct test doubles (stubs, mocks, etc). Therefore an attempt to mock the [`SimpleCommentBlock`](src/ApplyingFinalKeyword/UsingFinalClassesInTests/SimpleCommentBlock.php) final class in a [PHPUnit test](tests/ApplyingFinalKeyword/UsingFinalClassesInTests/SimpleCommentBlockTest.php#L14):
+
+```php
+$mock = $this->createMock(SimpleCommentBlock::class)
+```
+
+results in a warning like this:
 
 ```bash
 $ ./vendor/bin/phpunit tests/ApplyingFinalKeyword/UsingFinalClassesInTests/SimpleCommentBlockTest.php --filter testCreatingTestDouble --testdox
@@ -173,6 +179,14 @@ ppFinal\ApplyingFinalKeyword\UsingFinalClassesInTests\SimpleCommentBlock
 
 ```
 
-You can use the following approaches to solve the mentioned problem.
+You can use two approaches to solve this problem.
+
+- **Design approach.** The test double is another simplified dummy contract implementation. So you should construct the test double that implements the [`CommentBlock`](src/ApplyingFinalKeyword/UsingFinalClassesInTests/CommentBlock.php) interface rather than extending [`SimpleCommentBlock`](src/ApplyingFinalKeyword/UsingFinalClassesInTests/SimpleCommentBlock.php) concrete final class.
+
+  ```php
+  $mock = $this->createMock(CommentBlock::class);
+  ```
+
+- **Magic approach.** It's used if you don't have the necessary interface to create the test double as the use of such behavior through the interface isn't provided for by business tasks. 
 
 
