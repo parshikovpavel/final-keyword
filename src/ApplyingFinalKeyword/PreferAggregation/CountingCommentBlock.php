@@ -41,10 +41,10 @@ final class CountingCommentBlock implements CommentBlock
     /**
      * Returns a string view of the comment and increments the counter value in the cache
      *
-     * @param int $key
+     * @param string $key
      * @return string
      */
-    public function viewComment(int $key): string
+    public function viewComment(string $key): string
     {
         $this->cache->increment($key);
         return $this->commentBlock->viewComment($key);

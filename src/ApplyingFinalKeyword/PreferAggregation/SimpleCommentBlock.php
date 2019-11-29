@@ -25,7 +25,7 @@ final class SimpleCommentBlock implements CommentBlock
     /**
      * @inheritDoc
      */
-    public function viewComment(int $key): string
+    public function viewComment(string $key): string
     {
         return $this->comments[$key]->view();
     }

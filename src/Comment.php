@@ -8,7 +8,7 @@ namespace ppFinal;
 class Comment
 {
     /**
-     * @var int Key of comment
+     * @var string|null Key of comment
      */
     private $key;
 
@@ -20,10 +20,10 @@ class Comment
     /**
      * Comment constructor
      *
-     * @param int $key
      * @param string $content
+     * @param string|null $key
      */
-    public function __construct(string $content, ?int $key = null)
+    public function __construct(string $content, ?string $key = null)
     {
         $this->content = $content;
         $this->key = $key;
@@ -32,9 +32,9 @@ class Comment
     /**
      * Get key of comment
      *
-     * @return int
+     * @return string
      */
-    public function getKey(): int
+    public function getKey(): ?string
     {
         return $this->key;
     }

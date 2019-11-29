@@ -10,7 +10,7 @@ final class CountingCommentBlockTest extends TestCase
 {
     public function testCountsViewsOfComment(): void
     {
-        $key = 0;
+        $key = '0';
 
         $comments = [
             $key => new Comment('Hello! Glad to see you!'),

@@ -36,7 +36,7 @@ a [self-call](src/InheritanceIssues/OpenRecursionByDefault/CommentBlock.php#L50)
 `CommentBlock::getComments()` implementations, which is automatically inherited by `CustomCommentBlock`, is incompatible with the behavior of `CustomCommentBlock::getComment()` method. So getting a list of comments doesn't work correctly. You can see this by executing [the following test](tests/InheritanceIssues/OpenRecursionByDefault/CustomCommentBlockTest.php):
 
 ```bash
-$ ./vendor/bin/phpunit tests/InheritanceIssues/OpenRecursionByDefault/CustomCommentBlockTest.php --testdox
+$ vendor/bin/phpunit tests/InheritanceIssues/OpenRecursionByDefault/CustomCommentBlockTest.php --testdox
 
 ppFinal\InheritanceIssues\OpenRecursionByDefault\CustomCommentBlock
  ✘ Returns correct list of comments
@@ -61,7 +61,7 @@ Tests: 1, Assertions: 1, Failures: 1.
 [`CountingCommentBlock`](src/InheritanceIssues/ControlOfSideEffects/CountingCommentBlock.php) is a specific type of [`CommentBlock`](src/InheritanceIssues/ControlOfSideEffects/CommentBlock.php)  counting views of particular comments in a PSR-16 compatible cache. [`CountingCommentBlock::viewComment()`](src/InheritanceIssues/ControlOfSideEffects/CountingCommentBlock.php#L35) has a side effect since increments the counter value in the cache. [`CommentBlock::viewComments()`](src/InheritanceIssues/ControlOfSideEffects/CommentBlock.php#L43) combines the comment views into a single view and its implementation is inherited by `CountingCommentBlock` exactly as it is. However this inherited implementation doesn't take into account `CountingCommentBlock` responsibility for counting comment views in the cache. As a result, view counters don't work correctly during calls to `CountingCommentBlock::viewComments()`. The [test](tests/InheritanceIssues/ControlOfSideEffects/CountingCommentBlockTest.php) result below demonstrates this thought:
 
 ```bash
-$ ./vendor/bin/phpunit tests/InheritanceIssues/ControlOfSideEffects/CountingCommentBlockTest.php --testdox
+$ vendor/bin/phpunit tests/InheritanceIssues/ControlOfSideEffects/CountingCommentBlockTest.php --testdox
 
 ppFinal\InheritanceIssues\ControlOfSideEffects\CountingCommentBlock
  ✘ Counts views of comment
@@ -86,7 +86,7 @@ $view .= $comment->view();   ------>   $view .= $this->viewComment($key);
 The base class logic remains valid and it continues to pass the tests successfully. However base class isn't completely isolated. As a result,  calling  `CountingCommentBlock::viewComments()` causes double increment of a view counter value. You can explore the problem in detail by studying the [corresponding test](tests/InheritanceIssues/BaseClassFragility/CountingCommentBlockTest.php):
 
 ```bash
-$ ./vendor/bin/phpunit tests/InheritanceIssues/BaseClassFragility/CountingCommentBlockTest.php --testdox
+$ vendor/bin/phpunit tests/InheritanceIssues/BaseClassFragility/CountingCommentBlockTest.php --testdox
 
 ppFinal\InheritanceIssues\BaseClassFragility\CountingCommentBlock
  ✘ Counts views of comment
@@ -134,7 +134,7 @@ The [`CountingCommentBlock`](src/ApplyingFinalKeyword/PreferAggregation/Counting
 `SimpleCommentBlock` и `CountingCommentBlock` are coupled through an aggregation. For this reason they are devoid of all disadvantages of the inheritance: the base class fragility problem, the information hiding principle violation, etc. Changing the implementation detail of the base class doesn't affect the behavior and the structure of the derived class. As shown below all assertions which verify the `CountingCommentBlock` behavior are successful.
 
 ```bash
-$ ./vendor/bin/phpunit tests/ApplyingFinalKeyword/PreferAggregation/CountingCommentBlockTest.php --testdox
+$ vendor/bin/phpunit tests/ApplyingFinalKeyword/PreferAggregation/CountingCommentBlockTest.php --testdox
 
 ppFinal\ApplyingFinalKeyword\PreferAggregation\CountingCommentBlock
  ✔ Counts views of comment
@@ -169,7 +169,7 @@ $mock = $this->createMock(SimpleCommentBlock::class)
 results in a warning like this:
 
 ```bash
-$ ./vendor/bin/phpunit tests/ApplyingFinalKeyword/UsingFinalClassesInTests/SimpleCommentBlockTest.php --filter testCreatingTestDouble --testdox
+$ vendor/bin/phpunit tests/ApplyingFinalKeyword/UsingFinalClassesInTests/SimpleCommentBlockTest.php --filter testCreatingTestDouble --testdox
 
 ppFinal\ApplyingFinalKeyword\UsingFinalClassesInTests\SimpleCommentBlock
  ✘ Creating test double
@@ -181,12 +181,16 @@ ppFinal\ApplyingFinalKeyword\UsingFinalClassesInTests\SimpleCommentBlock
 
 You can use two approaches to solve this problem.
 
-- **Design approach.** The test double is another simplified dummy contract implementation. So you should construct the test double that implements the [`CommentBlock`](src/ApplyingFinalKeyword/UsingFinalClassesInTests/CommentBlock.php) interface rather than extending [`SimpleCommentBlock`](src/ApplyingFinalKeyword/UsingFinalClassesInTests/SimpleCommentBlock.php) concrete final class.
+- **Design approach.** The test double is another simplified dummy contract implementation. So you should [construct the test double](tests/ApplyingFinalKeyword/UsingFinalClassesInTests/CommentBlockTest.php#L11) that implements the [`CommentBlock`](src/ApplyingFinalKeyword/UsingFinalClassesInTests/CommentBlock.php) interface rather than extending [`SimpleCommentBlock`](src/ApplyingFinalKeyword/UsingFinalClassesInTests/SimpleCommentBlock.php) concrete final class.
 
   ```php
   $mock = $this->createMock(CommentBlock::class);
   ```
 
-- **Magic approach.** It's used if you don't have the necessary interface to create the test double as the use of such behavior through the interface isn't provided for by business tasks. 
+- **Magic approach.** It's used if you don't have the necessary interface to create the test double as the use of such behavior through the interface isn't provided for by business tasks. In this case you have no choice but to remove the `final` inheritance restriction.
+
+  The first approach is to use a proxy double which contains the original test double but has no `final` restriction. You can implement it manually, but it's better to use the ready-made [Mockery](https://github.com/mockery/mockery) implementation in the [PHPUnit test](tests/ApplyingFinalKeyword/UsingFinalClassesInTests/SimpleCommentBlockTest.php#L17-L34).
+
+  The second approach is to apply PHP magic to remove `final` keyword during loading files. Also the ready-made implementation is available as the [Bypass library](https://github.com/dg/bypass-finals). It's enough to enable removing `final` keywords in the [PHPUnit test](tests/ApplyingFinalKeyword/UsingFinalClassesInTests/SimpleCommentBlockTest.php#L36-L41) before loading a class file. 
 
 

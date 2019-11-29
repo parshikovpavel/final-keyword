@@ -23,10 +23,10 @@ class CommentBlock
      * @implSpec The implementation gets a comment with `$key` key
      * from the `$this->comments` internal array and calls the `view()` method for it
      *
-     * @param int $key Comment key
+     * @param string $key Comment key
      * @return string String view of the comment
      */
-    public function viewComment(int $key): string
+    public function viewComment(string $key): string
     {
         return $this->comments[$key]->view();
     }

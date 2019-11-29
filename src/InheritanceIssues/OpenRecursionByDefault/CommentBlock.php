@@ -25,13 +25,13 @@ class CommentBlock
     /**
      * Get a comment by key in `$comments` array
      *
-     * @param int $key
+     * @param string $key
      * @return Comment|null
      */
-    public function getComment(int $key): ?Comment
+    public function getComment(string $key): ?Comment
     {
         /* Perhaps some additional processing */
-        return $this->comment[$key] ?? null;
+        return $this->comments[$key] ?? null;
     }
 
     /**

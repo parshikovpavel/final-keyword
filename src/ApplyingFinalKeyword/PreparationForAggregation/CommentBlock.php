@@ -17,10 +17,10 @@ interface CommentBlock
     /**
      * Returns a string view of the comment to output to the template
      *
-     * @param int $key
+     * @param string $key
      * @return string
      */
-    public function viewComment(int $key): string;
+    public function viewComment(string $key): string;
 
     /**
      * Returns a string view of all comments in the block as a single string

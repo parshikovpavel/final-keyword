@@ -28,10 +28,10 @@ class CustomCommentBlock extends CommentBlock
      *
      * Changing the behavior of the method of the parent class
      *
-     * @param int $key
+     * @param string $key
      * @return Comment|null
      */
-    public function getComment(int $key): ?Comment
+    public function getComment(string $key): ?Comment
     {
         foreach ($this->comments as $comment) {
             if ($comment->getKey() === $key) {

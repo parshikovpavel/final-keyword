@@ -27,7 +27,7 @@ final class SimpleCommentBlockTest extends TestCase
               ->andReturn('text');
 
         /* Checking stubbing method behavior */
-        $this->assertEquals('text', $proxy->viewComment(1));
+        $this->assertEquals('text', $proxy->viewComment('1'));
 
         /* `$proxy` isn't an instance of the `SimpleCommentBlock` class */
         $this->assertNotInstanceOf(SimpleCommentBlock::class, $proxy);

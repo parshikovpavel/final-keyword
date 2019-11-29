@@ -32,7 +32,7 @@ final class CountingCommentBlock implements CommentBlock
     /**
      * @inheritDoc
      */
-    public function viewComment(int $key): string
+    public function viewComment(string $key): string
     {
         /* ... */
     }

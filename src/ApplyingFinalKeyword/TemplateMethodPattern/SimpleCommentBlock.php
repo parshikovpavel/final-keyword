@@ -10,7 +10,7 @@ final class SimpleCommentBlock extends CommentBlock
     /**
      * @inheritdoc
      */
-    public function viewComment(int $key): string
+    public function viewComment(string $key): string
     {
         return $this->comments[$key]->view();
     }

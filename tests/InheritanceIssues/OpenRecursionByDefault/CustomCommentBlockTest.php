@@ -10,8 +10,8 @@ final class CustomCommentBlockTest extends TestCase
     public function testReturnsCorrectListOfComments(): void
     {
         $comments = [
-            new Comment("That's great", 666),
-            new Comment('Cheer up', 555),
+            new Comment("That's great", '666'),
+            new Comment('Cheer up', '555'),
         ];
 
         $customCommentBlock = new CustomCommentBlock($comments);
