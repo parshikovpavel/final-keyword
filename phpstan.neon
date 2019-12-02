@@ -1,0 +1,8 @@
+services:
+   -
+      class: Localheinz\PHPStan\Rules\Classes\FinalRule
+      arguments:
+         allowAbstractClasses: true
+         classesNotRequiredToBeAbstractOrFinal: []
+      tags:
+         - phpstan.rules.rule

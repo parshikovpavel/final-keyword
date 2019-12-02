@@ -193,4 +193,6 @@ You can use two approaches to solve this problem.
 
   The second approach is to apply PHP magic to remove `final` keyword during loading files. Also the ready-made implementation is available as the [Bypass library](https://github.com/dg/bypass-finals). It's enough to enable removing `final` keywords in the [PHPUnit test](tests/ApplyingFinalKeyword/UsingFinalClassesInTests/SimpleCommentBlockTest.php#L36-L41) before loading a class file. 
 
+### Tools for convenient work with final classes 
 
+ Static analysis tools allow to find some problems in the code without actually running it. However, they can be used not only to search for typical errors, but also to control the code style.
