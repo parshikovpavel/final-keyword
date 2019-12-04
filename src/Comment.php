@@ -5,7 +5,7 @@ namespace ppFinal;
 /**
  * Class of comment
  */
-class Comment
+final class Comment
 {
     /**
      * @var string|null Key of comment

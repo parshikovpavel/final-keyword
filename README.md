@@ -195,4 +195,19 @@ You can use two approaches to solve this problem.
 
 ### Tools for convenient work with final classes 
 
- Static analysis tools allow to find some problems in the code without actually running it. However, they can be used not only to search for typical errors, but also to control the code style.
+ Static analysis tools allow to find some problems in the code without actually running it. However, they can be used not only to search for typical errors, but also to control the code style. The most popular analyzer is  [PHPStan](https://github.com/phpstan/phpstan). It enables you to extend the functionality quite easily by writing custom rules. As an example you can examine and use the ready-made [`FinalRule`](https://github.com/localheinz/phpstan-rules/blob/master/src/Classes/FinalRule.php) from the unofficial third-party [`localheinz/phpstan-rules`](https://github.com/localheinz/phpstan-rules) extension. The rule must be registered as a service in the [`phpstan.neon`](phpstan.neon) configuration file. Issue  the `analyse` command and PHPStan will report an error when a non-abstract class is not `final`. 
+
+```bash
+$ vendor/bin/phpstan -lmax analyse src tests
+
+ ------ ------------------------------------------------------------------------
+  Line   src\Introduction\CommentBlock.php
+ ------ ------------------------------------------------------------------------
+  10     Class ppFinal\Introduction\CommentBlock is neither abstract nor final.
+ ------ ------------------------------------------------------------------------
+
+```
+
+
+
+ 
