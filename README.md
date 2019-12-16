@@ -1,6 +1,4 @@
-<u>Table of contents</u>
-
-# Restriction of inheritance using the final keyword to reach loose coupling in the application design
+# Why restrict inheritance with `final`?
 
 The repository contains the code examples for learning from the article on habr.com
 
