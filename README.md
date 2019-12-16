@@ -28,7 +28,7 @@ The initial version of [`CommentBlock`](src/Introduction/CommentBlock.php)  clas
 
 ### Open recursion by default
 
-[`CommentComment::getComment()`](src/InheritanceIssues/OpenRecursionByDefault/CommentBlock.php#L31) and [`CustomCommentBlock::getComment()`](src/InheritanceIssues/OpenRecursionByDefault/CustomCommentBlock.php#L34) have different implementations of behavior. [`CommentBlock::getComments()`](src/InheritanceIssues/OpenRecursionByDefault/CommentBlock.php#L46) method makes 
+[`CommentComment::getComment()`](src/InheritanceIssues/OpenRecursionByDefault/CommentBlock.php#L31-L35) and [`CustomCommentBlock::getComment()`](src/InheritanceIssues/OpenRecursionByDefault/CustomCommentBlock.php#L34-L44) have different implementations of behavior. [`CommentBlock::getComments()`](src/InheritanceIssues/OpenRecursionByDefault/CommentBlock.php#L46-L53) method makes 
 a [self-call](src/InheritanceIssues/OpenRecursionByDefault/CommentBlock.php#L50) of `$this->getComments()` and relies on the implementation of behavior in the `CommentBlock` class.
 
 `CommentBlock::getComments()` implementations, which is automatically inherited by `CustomCommentBlock`, is incompatible with the behavior of `CustomCommentBlock::getComment()` method. So getting a list of comments doesn't work correctly. You can see this by executing [the following test](tests/InheritanceIssues/OpenRecursionByDefault/CustomCommentBlockTest.php):
@@ -56,7 +56,7 @@ Tests: 1, Assertions: 1, Failures: 1.
 
 ### Control of side effects
 
-[`CountingCommentBlock`](src/InheritanceIssues/ControlOfSideEffects/CountingCommentBlock.php) is a specific type of [`CommentBlock`](src/InheritanceIssues/ControlOfSideEffects/CommentBlock.php)  counting views of particular comments in a PSR-16 compatible cache. [`CountingCommentBlock::viewComment()`](src/InheritanceIssues/ControlOfSideEffects/CountingCommentBlock.php#L35) has a side effect since increments the counter value in the cache. [`CommentBlock::viewComments()`](src/InheritanceIssues/ControlOfSideEffects/CommentBlock.php#L43) combines the comment views into a single view and its implementation is inherited by `CountingCommentBlock` exactly as it is. However this inherited implementation doesn't take into account `CountingCommentBlock` responsibility for counting comment views in the cache. As a result, view counters don't work correctly during calls to `CountingCommentBlock::viewComments()`. The [test](tests/InheritanceIssues/ControlOfSideEffects/CountingCommentBlockTest.php) result below demonstrates this thought:
+[`CountingCommentBlock`](src/InheritanceIssues/ControlOfSideEffects/CountingCommentBlock.php) is a specific type of [`CommentBlock`](src/InheritanceIssues/ControlOfSideEffects/CommentBlock.php)  counting views of particular comments in a PSR-16 compatible cache. [`CountingCommentBlock::viewComment()`](src/InheritanceIssues/ControlOfSideEffects/CountingCommentBlock.php#L35-L39) has a side effect since increments the counter value in the cache. [`CommentBlock::viewComments()`](src/InheritanceIssues/ControlOfSideEffects/CommentBlock.php#L43-L50) combines the comment views into a single view and its implementation is inherited by `CountingCommentBlock` exactly as it is. However this inherited implementation doesn't take into account `CountingCommentBlock` responsibility for counting comment views in the cache. As a result, view counters don't work correctly during calls to `CountingCommentBlock::viewComments()`. The [test](tests/InheritanceIssues/ControlOfSideEffects/CountingCommentBlockTest.php) result below demonstrates this thought:
 
 ```bash
 $ vendor/bin/phpunit tests/InheritanceIssues/ControlOfSideEffects/CountingCommentBlockTest.php --testdox
@@ -103,11 +103,11 @@ Tests: 1, Assertions: 1, Failures: 1.
 
 The [`CommentBlock`](src/ApplyingFinalKeyword/TemplateMethodPattern/CommentBlock.php) is  an abstract superclass which defines the skeleton of subclasses. 
 
-The [`CommentBlock::viewComments()`](src/ApplyingFinalKeyword/TemplateMethodPattern/CommentBlock.php#L30-L34)  is a  final template method which is inherited by subclasses and can't be overridden by them.  It calls the abstract  [`CommentBlock::viewComment()`](src/ApplyingFinalKeyword/TemplateMethodPattern/CommentBlock.php#L23) method concrete implementations of which are provided by subclasses.
+The [`CommentBlock::viewComments()`](src/ApplyingFinalKeyword/TemplateMethodPattern/CommentBlock.php#L30-L37)  is a  final template method which is inherited by subclasses and can't be overridden by them.  It calls the abstract  [`CommentBlock::viewComment()`](src/ApplyingFinalKeyword/TemplateMethodPattern/CommentBlock.php#L23) method concrete implementations of which are provided by subclasses.
 
 The final [`SimpleCommentBlock`](src/ApplyingFinalKeyword/TemplateMethodPattern/SimpleCommentBlock.php) class implements the  [`SimpleCommentBlock::viewComment()`](src/ApplyingFinalKeyword/TemplateMethodPattern/SimpleCommentBlock.php#L13-L16) method which just returns a string view of the comment.
 
-The final [`CountingCommentBlock`](src/ApplyingFinalKeyword/TemplateMethodPattern/CountingCommentBlock.php) class includes different behavior implemented in [`CountingCommentBlock::viewComment()`](src/ApplyingFinalKeyword/TemplateMethodPattern/CountingCommentBlock.php#L30-L34). In addition to returning a string view of the comment, this method increments the counter value in the cache.
+The final [`CountingCommentBlock`](src/ApplyingFinalKeyword/TemplateMethodPattern/CountingCommentBlock.php) class includes different behavior implemented in [`CountingCommentBlock::viewComment()`](src/ApplyingFinalKeyword/TemplateMethodPattern/CountingCommentBlock.php#L33-L37). In addition to returning a string view of the comment, this method increments the counter value in the cache.
 
 ### Prefer interface implementation to inheritance
 
@@ -115,7 +115,7 @@ Let's avoid any class coupling by implementation details.
 
 The [`CommentBlock`](src/ApplyingFinalKeyword/PreferInterfaceImplementation/CommentBlock.php) is an interface which defines the contract and hides implementation details.
 
-The [`SimpleCommentBlock`](src/ApplyingFinalKeyword/PreferInterfaceImplementation/SimpleCommentBlock.php) and [`CountingCommentBlock`](src/ApplyingFinalKeyword/PreferInterfaceImplementation/CountingCommentBlock.php) are final classes that implement this interface but don't have a direct association. As a disadvantage, this classes have the same duplicate implementation of [`viewComments()`](src/ApplyingFinalKeyword/PreferInterfaceImplementation/SimpleCommentBlock.php#L33-L40) method.
+The [`SimpleCommentBlock`](src/ApplyingFinalKeyword/PreferInterfaceImplementation/SimpleCommentBlock.php) and [`CountingCommentBlock`](src/ApplyingFinalKeyword/PreferInterfaceImplementation/CountingCommentBlock.php) are final classes that implement this interface but don't have a direct association. As a disadvantage, this classes have the same duplicate implementation of [`viewComments()`](src/ApplyingFinalKeyword/PreferInterfaceImplementation/SimpleCommentBlock.php#L28-L35) method.
 
 ### Prefer aggregation to inheritance
 
@@ -125,7 +125,7 @@ The [`CommentBlock`](src/ApplyingFinalKeyword/PreferAggregation/CommentBlock.php
 
 The [`SimpleCommentBlock`](src/ApplyingFinalKeyword/PreferAggregation/SimpleCommentBlock.php) is a base final class with base behavior that implements the mentioned interface. 
 
-The [`CountingCommentBlock`](src/ApplyingFinalKeyword/PreferAggregation/CountingCommentBlock.php) is similar to a child class. It stores [a reference](src/ApplyingFinalKeyword/PreferAggregation/CountingCommentBlock.php#L15) to the decorated object,  forwards all calls to it and implements additional behavior. [`CountingCommentBlock::viewComment()`](src/ApplyingFinalKeyword/PreferAggregation/CountingCommentBlock.php#L47-L51) и [`CountingCommentBlock::viewComments()`](src/ApplyingFinalKeyword/PreferAggregation/CountingCommentBlock.php#L56-L66) add cache capabilities. [`CountingCommentBlock::getCommentKeys()`](src/ApplyingFinalKeyword/PreferAggregation/CountingCommentBlock.php#L36-L39) is a simple single-line function that just transfers  responsibility for the execution to the nested object.
+The [`CountingCommentBlock`](src/ApplyingFinalKeyword/PreferAggregation/CountingCommentBlock.php) is similar to a child class. It stores [a reference](src/ApplyingFinalKeyword/PreferAggregation/CountingCommentBlock.php#L15) to the decorated object,  forwards all calls to it and implements additional behavior. [`CountingCommentBlock::viewComment()`](src/ApplyingFinalKeyword/PreferAggregation/CountingCommentBlock.php#L47-L51) и [`CountingCommentBlock::viewComments()`](src/ApplyingFinalKeyword/PreferAggregation/CountingCommentBlock.php#L59-L66) add cache capabilities. [`CountingCommentBlock::getCommentKeys()`](src/ApplyingFinalKeyword/PreferAggregation/CountingCommentBlock.php#L36-L39) is a simple single-line function that just transfers  responsibility for the execution to the nested object.
 
 [`SimpleCommentBlock`](src/ApplyingFinalKeyword/PreferAggregation/SimpleCommentBlock.php) и [`CountingCommentBlock`](src/ApplyingFinalKeyword/PreferAggregation/CountingCommentBlock.php) maintain polymorphic behavior since both implement [`CommentBlock`](src/ApplyingFinalKeyword/PreferAggregation/CommentBlock.php) interface. Clients interacts with them transparently through the interface.
 
@@ -144,7 +144,7 @@ OK (1 test, 2 assertions)
 
 The inheritance violates the principle of the information hiding. So it's necessary to document in PHPDoc not only a public interface but also the internal implementation details.
 
-The [`CommentBlock::viewComment()`](src/ApplyingFinalKeyword/PreparationForInheritance/CommentBlock.php#L17-L32) is a non-final method that allows to override the implementation. Therefore [this method's PHPDoc](src/ApplyingFinalKeyword/PreparationForInheritance/CommentBlock.php#L17-28) describes the use of parameters and the existing side effects.
+The [`CommentBlock::viewComment()`](src/ApplyingFinalKeyword/PreparationForInheritance/CommentBlock.php#L17-L32) is a non-final method that allows to override the implementation. Therefore [this method's PHPDoc](src/ApplyingFinalKeyword/PreparationForInheritance/CommentBlock.php#L17-L28) describes the use of parameters and the existing side effects.
 
 The [`CommentBlock::viewComments()`](src/ApplyingFinalKeyword/PreparationForInheritance/CommentBlock.php#L34-L50) is a final method however it uses the non-final method mentioned above. Overriding of the non-final `CommentBlock::viewComment()` method in the subclasses affects the behavior of the final inherited `CommentBlock::viewComments()` method. Therefore [its PHPDoc](src/ApplyingFinalKeyword/PreparationForInheritance/CommentBlock.php#L34-L42) reveals the schema of using all non-final methods.
 
@@ -158,7 +158,7 @@ The general schema to create a loosely coupled design consists of the following 
 
 ### Using final classes in tests
 
-Most unit test libraries use the inheritance to construct test doubles (stubs, mocks, etc). Therefore an attempt to mock the [`SimpleCommentBlock`](src/ApplyingFinalKeyword/UsingFinalClassesInTests/SimpleCommentBlock.php) final class in a [PHPUnit test](tests/ApplyingFinalKeyword/UsingFinalClassesInTests/SimpleCommentBlockTest.php#L14):
+Most unit test libraries use the inheritance to construct test doubles (stubs, mocks, etc). Therefore an attempt to mock the [`SimpleCommentBlock`](src/ApplyingFinalKeyword/UsingFinalClassesInTests/SimpleCommentBlock.php) final class in a [PHPUnit test](tests/ApplyingFinalKeyword/UsingFinalClassesInTests/SimpleCommentBlockTest.php#L13):
 
 ```php
 $mock = $this->createMock(SimpleCommentBlock::class)
@@ -187,9 +187,9 @@ You can use two approaches to solve this problem.
 
 - **Magic approach.** It's used if you don't have the necessary interface to create the test double as the use of such behavior through the interface isn't provided for by business tasks. In this case you have no choice but to remove the `final` inheritance restriction.
 
-  The first approach is to use a proxy double which contains the original test double but has no `final` restriction. You can implement it manually, but it's better to use the ready-made [Mockery](https://github.com/mockery/mockery) implementation in the [PHPUnit test](tests/ApplyingFinalKeyword/UsingFinalClassesInTests/SimpleCommentBlockTest.php#L17-L34).
+  The first approach is to use a proxy double which contains the original test double but has no `final` restriction. You can implement it manually, but it's better to use the ready-made [Mockery](https://github.com/mockery/mockery) implementation in the [PHPUnit test](tests/ApplyingFinalKeyword/UsingFinalClassesInTests/SimpleCommentBlockTest.php#L16-L33).
 
-  The second approach is to apply PHP magic to remove `final` keyword during loading files. Also the ready-made implementation is available as the [Bypass library](https://github.com/dg/bypass-finals). It's enough to enable removing `final` keywords in the [PHPUnit test](tests/ApplyingFinalKeyword/UsingFinalClassesInTests/SimpleCommentBlockTest.php#L36-L41) before loading a class file. 
+  The second approach is to apply PHP magic to remove `final` keyword during loading files. Also the ready-made implementation is available as the [Bypass library](https://github.com/dg/bypass-finals). It's enough to enable removing `final` keywords in the [PHPUnit test](tests/ApplyingFinalKeyword/UsingFinalClassesInTests/SimpleCommentBlockTest.php#L35-L40) before loading a class file. 
 
 ### Tools for convenient work with final classes 
 
