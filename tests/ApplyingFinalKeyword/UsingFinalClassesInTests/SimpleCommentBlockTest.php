@@ -3,9 +3,8 @@
 namespace ppFinal\ApplyingFinalKeyword\UsingFinalClassesInTests;
 
 use PHPUnit\Framework\TestCase;
-use \Mockery;
-use \DG\BypassFinals;
-
+use Mockery;
+use DG\BypassFinals;
 
 final class SimpleCommentBlockTest extends TestCase
 {
@@ -39,6 +38,4 @@ final class SimpleCommentBlockTest extends TestCase
 
         $mock = $this->createMock(SimpleCommentBlock::class);
     }
-
-
 }

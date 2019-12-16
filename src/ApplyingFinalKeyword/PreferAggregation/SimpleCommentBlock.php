@@ -38,7 +38,7 @@ final class SimpleCommentBlock implements CommentBlock
     public function viewComments(): string
     {
         $view = '';
-        foreach($this->comments as $key => $comment) {
+        foreach ($this->comments as $key => $comment) {
             /* Instead of `$this->viewComment()` calling direct call to the `view()` comment method is made */
             $view .= $this->comments[$key]->view();
         }
@@ -65,4 +65,3 @@ final class SimpleCommentBlock implements CommentBlock
         $this->comments = $comments;
     }
 }
-

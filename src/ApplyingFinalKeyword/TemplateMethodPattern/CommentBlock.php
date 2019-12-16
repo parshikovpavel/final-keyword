@@ -30,7 +30,7 @@ abstract class CommentBlock
     final public function viewComments(): string
     {
         $view = '';
-        foreach($this->comments as $key => $comment) {
+        foreach ($this->comments as $key => $comment) {
             $view .= $this->viewComment($key);
         }
         return $view;

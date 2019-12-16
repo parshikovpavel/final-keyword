@@ -50,10 +50,9 @@ final class CountingCommentBlock implements CommentBlock
     public function viewComments(): string
     {
         $view = '';
-        foreach($this->comments as $key => $comment) {
+        foreach ($this->comments as $key => $comment) {
             $view .= $this->viewComment($key);
         }
         return $view;
     }
 }
-

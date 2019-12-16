@@ -48,5 +48,4 @@ final class Comment
     {
         return 'Comment content: ' . $this->content;
     }
-
 }

@@ -56,7 +56,7 @@ final class CountingCommentBlock implements CommentBlock
      *
      * @return string
      */
-    public function viewComments() : string
+    public function viewComments(): string
     {
         $commentKeys = $this->getCommentKeys();
         foreach ($commentKeys as $commentKey) {
@@ -73,4 +73,3 @@ final class CountingCommentBlock implements CommentBlock
         $this->commentBlock->setComments($comments);
     }
 }
-

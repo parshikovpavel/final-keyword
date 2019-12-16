@@ -2,7 +2,6 @@
 
 namespace ppFinal\ApplyingFinalKeyword\PreferInterfaceImplementation;
 
-
 /**
  * The interface of a comment block
  */

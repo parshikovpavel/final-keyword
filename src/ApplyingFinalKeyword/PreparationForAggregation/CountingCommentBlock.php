@@ -40,9 +40,8 @@ final class CountingCommentBlock implements CommentBlock
     /**
      * @inheritDoc
      */
-    public function viewComments() : string
+    public function viewComments(): string
     {
         /* ... */
     }
 }
-
