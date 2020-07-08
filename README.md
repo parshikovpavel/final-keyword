@@ -1,6 +1,6 @@
 # Why restrict inheritance with `final`?
 
-The repository contains the code examples for learning from the article on habr.com
+The repository contains the code examples for learning from [the article](https://habr.com/ru/post/482154/) on habr.com
 
 Use the following `composer` command to fetch the source code examples: 
 
